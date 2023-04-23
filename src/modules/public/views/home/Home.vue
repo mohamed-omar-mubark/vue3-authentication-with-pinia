@@ -14,11 +14,12 @@
 <script setup>
 import { onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
+import Cookies from "js-cookie";
 
 const authStore = useAuthStore();
 
 onMounted(async () => {
   // get user
-  localStorage.getItem("token") ? await authStore.getUser() : null;
+  Cookies.get("token") ? await authStore.getUser() : null;
 });
 </script>

@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -15,8 +16,9 @@ export const useAuthStore = defineStore("auth", {
     async handleLogin(userData) {
       const response = await axios.post("login", userData);
 
-      // set token to local storage
-      localStorage.setItem("token", response.data.data.token);
+      // set token to cookie with expiration date of 1 month
+      Cookies.set("token", response.data.data.token, { expires: 30, path: "/" });
+
       // redirect to home page
       this.$router.push({ name: "Home" });
     },
@@ -25,9 +27,11 @@ export const useAuthStore = defineStore("auth", {
     async getUser() {
       const data = await axios.get("profile", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
+          Authorization: `Bearer ${Cookies.get("token")}`
         }
       });
+
+      // set authUser
       this.authUser = data.data.data;
     },
 
@@ -35,11 +39,13 @@ export const useAuthStore = defineStore("auth", {
     async handleLogout() {
       await axios.get("logout", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
+          Authorization: `Bearer ${Cookies.get("token")}`
         }
       });
+
       // remove token from local storage
       localStorage.removeItem("token");
+
       // set authUser to null
       this.authUser = null;
     }
