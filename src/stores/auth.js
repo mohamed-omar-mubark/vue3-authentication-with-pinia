@@ -19,6 +19,19 @@ export const useAuthStore = defineStore("auth", {
         }
       });
       this.authUser = data.data.data;
+    },
+
+    // handle logout
+    async handleLogout() {
+      await axios.get("logout", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      // remove token from local storage
+      localStorage.removeItem("token");
+      // set authUser to null
+      this.authUser = null;
     }
   }
 });

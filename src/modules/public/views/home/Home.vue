@@ -1,21 +1,14 @@
 <template>
-  <main>
-    <h1>Home</h1>
-
+  <div class="main flex justify-center items-center h-20">
     <div v-if="authStore.user">
-      <p>
-        {{ authStore.user.name }}
-      </p>
-      <p>
-        {{ authStore.user.email }}
-      </p>
+      <strong>
+        Welcome back,
+        <span class="text-blue-500">{{ authStore.user.name }}</span>
+      </strong>
     </div>
 
-    <div v-else>
-      <p>You are not logged in</p>
-      <router-link :to="{ name: 'Login' }">Login now</router-link>
-    </div>
-  </main>
+    <strong v-else>You are not logged in</strong>
+  </div>
 </template>
 
 <script setup>
@@ -26,6 +19,6 @@ const authStore = useAuthStore();
 
 onMounted(async () => {
   // get user
-  await authStore.getUser();
+  localStorage.getItem("token") ? await authStore.getUser() : null;
 });
 </script>
