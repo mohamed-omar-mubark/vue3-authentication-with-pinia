@@ -3,12 +3,16 @@ import { createRouter, createWebHistory } from "vue-router";
 // import routes from modules
 // public routes
 import publicRoutes from "../modules/public/routes/public.routes.js";
+// auth routes
+import authRoutes from "../modules/auth/routes/auth.routes.js";
 
 const baseRoutes = [];
 
 const routes = baseRoutes.concat(
   // public routes
-  publicRoutes
+  publicRoutes,
+  // auth routes
+  authRoutes
 );
 
 const router = createRouter({

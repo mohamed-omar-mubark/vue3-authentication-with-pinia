@@ -19,6 +19,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 
 // axios config
+axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "https://staging.drhealthclinics.com/api/";
 axios.defaults.headers.common["Accept-Language"] = "en";
 
