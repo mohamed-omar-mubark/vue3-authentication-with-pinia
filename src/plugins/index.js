@@ -13,16 +13,8 @@ import router from "../router";
 import { createPinia } from "pinia";
 
 // axios
-import axios from "axios";
-
-// vue axios
-import VueAxios from "vue-axios";
-
-// axios config
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "https://staging.drhealthclinics.com/api/";
-axios.defaults.headers.common["Accept-Language"] = "en";
+import "./axios";
 
 export function registerPlugins(app) {
-  app.use(router).use(createPinia()).use(VueAxios, axios);
+  app.use(router).use(createPinia());
 }
