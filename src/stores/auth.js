@@ -43,8 +43,8 @@ export const useAuthStore = defineStore("auth", {
         }
       });
 
-      // remove token from local storage
-      localStorage.removeItem("token");
+      // remove token from cookie
+      Cookies.remove("token");
 
       // set authUser to null
       this.authUser = null;
