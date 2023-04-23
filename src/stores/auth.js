@@ -11,6 +11,16 @@ export const useAuthStore = defineStore("auth", {
   },
 
   actions: {
+    // handle login
+    async handleLogin(userData) {
+      const response = await axios.post("login", userData);
+
+      // set token to local storage
+      localStorage.setItem("token", response.data.data.token);
+      // redirect to home page
+      this.$router.push({ name: "Home" });
+    },
+
     // get user
     async getUser() {
       const data = await axios.get("profile", {

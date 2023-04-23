@@ -8,7 +8,7 @@
       </div>
 
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" @submit.prevent="handleLogin">
+        <form class="space-y-6" @submit.prevent="authStore.handleLogin(form)">
           <div>
             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
               Email address
@@ -61,21 +61,12 @@
 
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
-import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
-const router = useRouter();
+const authStore = useAuthStore();
 
 const form = ref({
   email: "client@promoterss.com",
   password: "123456789"
 });
-
-const handleLogin = async () => {
-  const { data } = await axios.post("login", form.value);
-  // set token to local storage
-  localStorage.setItem("token", data.data.token);
-  // redirect to home page
-  router.push({ name: "Home" });
-};
 </script>
